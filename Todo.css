@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.main {
+  height: 100vh;
+  margin: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+}
+
+h1 {
+  margin-top: 30px;
+  font-size: 40px;
+  height: 20%;
+}
+.tasks {
+  /* width: min(1000px, 100%); */
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: #10caf0; */
+  /* margin: auto; */
+}
+
+.add-task {
+  /* align-self: flex-end; */
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.task-item {
+  width: min(1000px, 80%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.5px solid gray;
+  padding: 12px 8px;
+}
+
+.task-heading {
+  font-weight: bolder;
+  border-bottom: 2px solid black;
+  font-size: 19px;
+}
+
+.task-heading-no,
+.task-no {
+  width: 10%;
+  text-align: center;
+}
+
+.task-heading-name,
+.task-name {
+  flex-grow: 1;
+  text-align: center;
+  min-width: 220px;
+}
+
+.task-heading-status,
+.task-status {
+  width: min(200px, 18%);
+  text-align: center;
+  margin: 10px;
+  justify-content: center;
+}
+
+.task-heading-edit,
+.task-heading-remove,
+.task-edit,
+.task-remove {
+  width: 10%;
+  text-align: center;
+}
+
+.button {
+  padding: 6px 7px;
+  background-color: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.edit-button,
+.add-task {
+  border: 2px solid #10caf0;
+  color: #10caf0;
+  /* min-width: 50px; */
+}
+
+.delete-button {
+  border: 1.5px solid gray;
+  color: gray;
+}
+
+.task-status {
+  border-radius: 10px;
+  padding: 6px 5px;
+}
+.task-status-todo {
+  border: 1.5px solid gray;
+  color: gray;
+}
+
+.task-status-in-progress {
+  border: 1.5px solid #ffc007;
+  color: #ffc007;
+}
+.task-status-complete {
+  border: 1.5px solid #79b392;
+  color: #79b392;
+}
+
+input {
+  padding: 8px;
+  /* width: 400px; */
+  border-radius: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.511);
+}
+.task-form {
+  display: flex;
+  width: min(1000px, 80%);
+
+  /* background-color: rebeccapurple; */
+  justify-content: space-between;
+}
+
+.form-row {
+  margin-top: 20px;
+}
+label {
+  color: gray;
+}
+@media only screen and (max-width: 678px) {
+  .task-heading-edit,
+  .task-heading-remove {
+    display: none;
+  }
+}
