@@ -4,93 +4,50 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task Tracker</title>
+    <title>Todo-Pro</title>
     <script
       src="https://kit.fontawesome.com/190e3c7122.js"
       crossorigin="anonymous"
     ></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Todo.css" />
   </head>
   <body>
-    <div class="main">
-      <h1>Todo Tracker</h1>
-      <div class="task-form">
+    <main class="main">
+      <header>
+        <h1>Todo-Pro</h1>
+        <p>Do it now.</p>
+      </header>
+      <section class="task-form">
         <div class="form-input">
-          <input type="text" class="form-task-name" />
-          <!-- <input type="text" class="form-task-status" /> -->
-          <select name="status" id="status">
-            <option value="Todo">Todo</option>
-            <option value="In Progress">In Progess</option>
-            <option value="Complete">Complete</option>
-          <select name="status" id="status">
+          <input type="text" class="form-task-name" id="task-name" placeholder="Task Name" />
+          <div class="form-error" id="form-error">Enter Task Name</div>
           </select>
         </div>
         <div class="form-button">
-          <button class="add-task button">Add Task</button>
+          <button class="cancel-button button" id="form-cancel-button" onclick="cancelForm()"><i class="fa-solid fa-close"></i></button>
+          <button class="add-task button" id="form-submit-button" onclick="formSubmit()">Add Task</button>
         </div>
-      </div>
-      <div class="tasks">
-        <div class="task-item task-heading">
+      </section>
+      <hr class="divider" />
+      <section class="tasks">
+        <article class="task-item task-heading">
           <div class="task-heading-no">#</div>
           <div class="task-heading-name">Task Name</div>
           <div class="task-heading-status">Status</div>
-          <div class="task-heading-edit">Edit</div>
+          <div class="form-edit-delete-button">
+            <div class="task-heading-edit">Edit</div>
           <div class="task-heading-remove">Remove</div>
-        </div>
-        <!-- <div class="tasks-list"></div> -->
-        <div class="task-item">
-          <div class="task-no">24</div>
-          <div class="task-name">Buy Grocery</div>
-          <div class="task-status task-status-todo">Todo</div>
-          <div class="task-edit">
-            <button class="button edit-button">
-              <i class="fa-solid fa-pen"></i>
-            </button>
           </div>
-          <div class="task-remove">
-            <button class="button delete-button">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-no">25</div>
-          <div class="task-name">Buy Grocery</div>
-          <div class="task-status task-status-in-progress">In Progress</div>
-          <div class="task-edit">
-            <button class="button edit-button">
-              <i class="fa-solid fa-pen"></i>
-            </button>
-          </div>
-          <div class="task-remove">
-            <button class="button delete-button">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-no">26</div>
-          <div class="task-name">Buy Grocery</div>
-          <div class="task-status task-status-complete">Complete</div>
-          <div class="task-edit">
-            <button class="button edit-button">
-              <i class="fa-solid fa-pen"></i>
-            </button>
-          </div>
-          <div class="task-remove">
-            <button class="button delete-button">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        </div>
+        </article>
+        <section class="tasks-list"></section>
+        <article class="no-tasks" id="no-tasks">No Tasks</article>
       </div>
-    </div>
+    </main>
+    <footer>@vpbs</footer>
     <script src="Todo.js"></script>
   </body>
 </html>

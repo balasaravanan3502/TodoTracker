@@ -1,32 +1,53 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .main {
-  height: 100vh;
-  margin: auto;
+  /* height: 100vh; */
+  /* margin: auto; */
   align-items: center;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
 }
 
-h1 {
-  margin-top: 30px;
-  font-size: 40px;
+header {
+  width: min(1000px, 80%);
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 70px;
   height: 20%;
 }
-.tasks {
-  /* width: min(1000px, 100%); */
-  width: 100%;
+
+h1 {
   margin-top: 30px;
+  font-size: 3.5rem;
+  font-weight: bolder;
+  display: flex;
+}
+
+p {
+  background-color: #ffc107c5;
+  display: inline;
+}
+
+.tasks,
+.tasks-list {
+  width: 100%;
+  /* margin-top: 30px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   /* background-color: #10caf0; */
   /* margin: auto; */
+}
+
+.no-tasks {
+  color: gray;
+  margin-top: 20px;
+  display: none;
 }
 
 .add-task {
@@ -35,8 +56,34 @@ h1 {
   margin-bottom: 20px;
 }
 
-.task-item {
+.task-form {
+  display: flex;
   width: min(1000px, 80%);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.form-button {
+  /* width: 30%; */
+  /* display: flex; */
+}
+
+.cancel-button {
+  color: #ff4a4a;
+  border: 2px solid #ff4a4a;
+  width: 40px;
+  margin-right: 25px;
+  display: none;
+}
+
+.cancel-button:hover {
+  background-color: #ff4a4a;
+  color: white;
+}
+
+.task-item {
+  width: min(1000px, 85%);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -48,12 +95,12 @@ h1 {
 .task-heading {
   font-weight: bolder;
   border-bottom: 2px solid black;
-  font-size: 19px;
+  font-size: 1rem;
 }
 
 .task-heading-no,
 .task-no {
-  width: 10%;
+  width: 5%;
   text-align: center;
 }
 
@@ -61,7 +108,7 @@ h1 {
 .task-name {
   flex-grow: 1;
   text-align: center;
-  min-width: 220px;
+  width: 48%;
 }
 
 .task-heading-status,
@@ -70,13 +117,14 @@ h1 {
   text-align: center;
   margin: 10px;
   justify-content: center;
+  cursor: pointer;
 }
 
 .task-heading-edit,
 .task-heading-remove,
 .task-edit,
 .task-remove {
-  width: 10%;
+  width: 60px;
   text-align: center;
 }
 
@@ -89,48 +137,84 @@ h1 {
   font-weight: 700;
 }
 
+.form-edit-delete-button {
+  display: flex;
+  width: 125px;
+}
+
 .edit-button,
 .add-task {
   border: 2px solid #10caf0;
   color: #10caf0;
+  /* margin-top: 20px; */
   /* min-width: 50px; */
+}
+.edit-button:hover,
+.add-task:hover {
+  background-color: #10caf0;
+  color: white;
 }
 
 .delete-button {
-  border: 1.5px solid gray;
-  color: gray;
+  border: 1.5px solid #ff4a4a;
+  color: #ff4a4a;
+}
+.delete-button:hover {
+  background-color: #ff4a4a;
+  color: white;
 }
 
 .task-status {
-  border-radius: 10px;
-  padding: 6px 5px;
+  /* border-radius: 10px; */
 }
+
 .task-status-todo {
-  border: 1.5px solid gray;
+  border: 2px solid gray;
   color: gray;
+  padding: 6px 5px;
+  width: 90px;
+}
+.task-status-todo:hover {
+  background-color: gray;
+  color: white;
 }
 
 .task-status-in-progress {
-  border: 1.5px solid #ffc007;
+  border: 2px solid #ffc007;
   color: #ffc007;
 }
+.task-status-in-progress:hover {
+  background-color: #ffc007;
+  color: white;
+}
+
 .task-status-complete {
-  border: 1.5px solid #79b392;
+  border: 2px solid #79b392;
   color: #79b392;
+}
+.task-status-complete:hover {
+  background-color: #79b392;
+  color: white;
 }
 
 input {
   padding: 8px;
-  /* width: 400px; */
-  border-radius: 10px;
+  width: 250px;
+  border-radius: 5px;
   border: 1px solid rgba(128, 128, 128, 0.511);
-}
-.task-form {
   display: flex;
-  width: min(1000px, 80%);
+}
 
-  /* background-color: rebeccapurple; */
-  justify-content: space-between;
+.form-error {
+  margin-top: 10px;
+  background-color: #ff4a4a61;
+  border: 2px solid #ff4a4a9a;
+  color: rgba(0, 0, 0, 0.605);
+  font-weight: lighter;
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 13px;
+  display: none;
 }
 
 .form-row {
@@ -139,9 +223,35 @@ input {
 label {
   color: gray;
 }
-@media only screen and (max-width: 678px) {
+.divider {
+  width: 70%;
+  border: 0.5px solid rgba(128, 128, 128, 0.481);
+  display: none;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  color: gray;
+  margin-top: 300px;
+}
+@media only screen and (max-width: 588px) {
   .task-heading-edit,
   .task-heading-remove {
     display: none;
+  }
+
+  .divider {
+    display: block;
+    margin-bottom: 40px;
+  }
+
+  .task-form {
+    justify-content: space-around;
+    width: 80%;
+  }
+
+  input {
+    margin-bottom: 20px;
   }
 }
