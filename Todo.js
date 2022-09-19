@@ -55,6 +55,12 @@ const formSubmit = () => {
     return;
   }
 
+  for (var task of tasks) {
+    if (task.name.toLowerCase() === taskName.toLowerCase()) {
+      alert("Already Exists");
+      return;
+    }
+  }
   document.getElementById("form-error").style.display = "none";
 
   if (isAdd) {
@@ -65,7 +71,6 @@ const formSubmit = () => {
     } else {
       taskNo = parseInt(tasks[tasks.length - 1].sNo) + 1;
     }
-    console.log(taskNo);
 
     tasks.push({
       sNo: taskNo.toString(),
