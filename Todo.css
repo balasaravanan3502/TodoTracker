@@ -97,6 +97,9 @@ p {
   border-bottom: 2px solid black;
   font-size: 1rem;
 }
+.task-heading div {
+  cursor: pointer;
+}
 
 .task-heading-no,
 .task-no {
@@ -117,9 +120,15 @@ p {
   text-align: center;
   margin: 10px;
   justify-content: center;
-  cursor: pointer;
+  cursor: default;
+  display: flex;
 }
 
+.status-up,
+.status-down {
+  margin-left: 3px;
+  display: none;
+}
 .task-heading-edit,
 .task-heading-remove,
 .task-edit,
@@ -197,12 +206,26 @@ p {
   color: white;
 }
 
+.form-input {
+  display: flex;
+}
+
 input {
-  padding: 8px;
+  padding: 0px 8px;
   width: 250px;
+  height: 40px;
   border-radius: 5px;
   border: 1px solid rgba(128, 128, 128, 0.511);
   display: flex;
+}
+
+select {
+  padding: 0px 8px;
+  margin-left: 10px;
+  border-radius: 5px;
+  height: 41px;
+  border: 1px solid rgba(128, 128, 128, 0.511);
+  color: rgba(0, 0, 0, 0.685);
 }
 
 .form-error {
@@ -235,6 +258,7 @@ footer {
   color: gray;
   margin-top: 300px;
 }
+
 @media only screen and (max-width: 588px) {
   .task-heading-edit,
   .task-heading-remove {

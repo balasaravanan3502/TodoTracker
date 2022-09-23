@@ -1,9 +1,12 @@
 let tasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
-
+let nonFilterTasks = [];
+``;
 var allStatus = ["todo", "in-progress", "complete"];
 
 var isAdd = true;
 var taskNoInEdit = -1;
+
+var statusFilter = 0;
 
 if (tasks.length === 0) {
   document.getElementById("no-tasks").style.display = "block";
@@ -16,19 +19,13 @@ const renderTasks = () => {
     var statusDiv = "";
     if (tasks[i].status === "todo") {
       statusDiv =
-        '<div class="task-status"><button class="button task-status-todo task-status-todo" ondblclick="updateStatus(' +
-        tasks[i].sNo +
-        ')">Todo</button></div>';
+        '<div class="task-status"><button class="button task-status-todo task-status-todo">Todo</button></div>';
     } else if (tasks[i].status === "in-progress") {
       statusDiv =
-        '<div class="task-status"><button class="button task-status-in-progress task-status-in-progress" ondblclick="updateStatus(' +
-        tasks[i].sNo +
-        ')">In Progress</button></div>';
+        '<div class="task-status"><button class="button task-status-in-progress task-status-in-progress">In Progress</button></div>';
     } else {
       statusDiv =
-        '<div class="task-status"><button class="button task-status-complete task-status-complete" ondblclick="updateStatus(' +
-        tasks[i].sNo +
-        ')">Complete</button></div>';
+        '<div class="task-status"><button class="button task-status-complete task-status-complete">Complete</button></div>';
     }
 
     document.querySelector(".tasks-list").innerHTML +=
@@ -49,6 +46,7 @@ const renderTasks = () => {
 
 const formSubmit = () => {
   var taskName = document.getElementById("task-name").value;
+  var taskStatus = document.getElementById("task-status").value;
 
   if (taskName.length === 0) {
     document.getElementById("form-error").style.display = "block";
@@ -61,6 +59,7 @@ const formSubmit = () => {
       return;
     }
   }
+
   document.getElementById("form-error").style.display = "none";
 
   if (isAdd) {
@@ -75,7 +74,7 @@ const formSubmit = () => {
     tasks.push({
       sNo: taskNo.toString(),
       name: taskName,
-      status: "todo",
+      status: taskStatus,
     });
 
     renderTasks();
@@ -83,8 +82,7 @@ const formSubmit = () => {
     var taskIndex = tasks.findIndex((task) => task.sNo == taskNoInEdit);
 
     tasks[taskIndex].name = taskName;
-    console.log(tasks);
-
+    tasks[taskIndex].status = taskStatus;
     renderTasks();
 
     document.getElementById("form-submit-button").innerHTML = "Add Task";
@@ -93,6 +91,7 @@ const formSubmit = () => {
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
   document.getElementById("task-name").value = "";
+  document.getElementById("task-status").value = "";
   document.getElementById("form-cancel-button").style.display = "none";
   document.getElementById("no-tasks").style.display = "none";
 };
@@ -117,6 +116,31 @@ const updateStatus = (i) => {
   renderTasks();
 };
 
+const filterByStatus = () => {
+  var todoTasks = tasks.filter((task) => task.status === "todo");
+  var inprogressTasks = tasks.filter((task) => task.status === "in-progress");
+  var completeTasks = tasks.filter((task) => task.status === "complete");
+
+  if (statusFilter === 0) {
+    statusFilter = 1;
+    nonFilterTasks = tasks;
+    tasks = [...todoTasks, ...inprogressTasks, ...completeTasks];
+    document.getElementById("status-up").style.display = "inline";
+  } else if (statusFilter === 1) {
+    statusFilter = -1;
+    tasks = [...completeTasks, ...inprogressTasks, ...todoTasks];
+    document.getElementById("status-up").style.display = "none";
+    document.getElementById("status-down").style.display = "inline";
+  } else {
+    statusFilter = 0;
+    nonFilterTasks = tasks;
+    document.getElementById("status-up").style.display = "none";
+    document.getElementById("status-down").style.display = "none";
+  }
+
+  renderTasks();
+};
+
 const editTask = (i) => {
   document.getElementById("form-submit-button").innerHTML = "Edit Task";
   document.getElementById("form-cancel-button").style.display = "inline";
@@ -126,6 +150,7 @@ const editTask = (i) => {
 
   taskNoInEdit = i;
   document.getElementById("task-name").value = taskDetails.name;
+  document.getElementById("task-status").value = taskDetails.status;
 };
 
 const deleteTask = (i) => {

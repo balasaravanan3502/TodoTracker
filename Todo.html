@@ -24,7 +24,12 @@
       <section class="task-form">
         <div class="form-input">
           <input type="text" class="form-task-name" id="task-name" placeholder="Task Name" />
-          <div class="form-error" id="form-error">Enter Task Name</div>
+          <!-- <div class="form-error" id="form-error">Enter Task Name</div> -->
+          <select name="task-status" id="task-status" class="dropdown">
+            <option value="" disabled selected>Select Option</option>
+            <option value="todo">Todo</option>         
+            <option value="in-progress">In Progress</option>4
+            <option value="complete">Complete</option>
           </select>
         </div>
         <div class="form-button">
@@ -37,7 +42,10 @@
         <article class="task-item task-heading">
           <div class="task-heading-no">#</div>
           <div class="task-heading-name">Task Name</div>
-          <div class="task-heading-status">Status</div>
+          <div class="task-heading-status" onclick="filterByStatus()" >
+            <div>Status</div> 
+            <i class="fa-solid fa-angle-up status-up" id="status-up"></i>
+            <i class="fa-solid fa-angle-down status-down" id="status-down"></i></div>
           <div class="form-edit-delete-button">
             <div class="task-heading-edit">Edit</div>
           <div class="task-heading-remove">Remove</div>
