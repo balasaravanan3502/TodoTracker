@@ -75,7 +75,13 @@ const formSubmit = () => {
 
   if (isAdd) {
     var taskNo;
-    if (taskNoEntered === "0") {
+    if (tasks.length === 0) {
+      tasks.push({
+        sNo: "1",
+        name: taskName,
+        status: taskStatus,
+      });
+    } else if (taskNoEntered === "0") {
       var newTasks = tasks.map((task) => {
         return { ...task, sNo: parseInt(task.sNo) + 1 };
       });
@@ -116,13 +122,16 @@ const formSubmit = () => {
 
     renderTasks();
   } else {
-    if (taskNoInEdit === taskNoEntered) {
-      tasks[taskIndex].name = taskName;
-      tasks[taskIndex].status = taskStatus;
+    console.log(taskNoInEdit, taskNoEntered);
+    if (taskNoInEdit.toString() === taskNoEntered) {
+      tasks[taskNoInEdit - 1].name = taskName;
+      tasks[taskNoInEdit - 1].status = taskStatus;
     } else if (taskNoEntered === "0") {
-      var newTasks = tasks.filter((task) => task.sNo === taskNoInEdit);
+      var newTasks = tasks.filter(
+        (task) => task.sNo.toString() !== taskNoInEdit.toString()
+      );
 
-      newTasks = tasks.map((task) => {
+      newTasks = newTasks.map((task) => {
         return { ...task, sNo: parseInt(task.sNo) + 1 };
       });
 
@@ -135,33 +144,37 @@ const formSubmit = () => {
         ...newTasks,
       ];
     } else if (taskNoEntered === "-1" || taskNoEntered > tasks.length) {
-      taskNo = parseInt(tasks[tasks.length - 1].sNo) + 1;
+      taskNo = tasks.length;
 
-      var newTasks = tasks.filter((task) => task.sNo === taskNoInEdit);
+      var newTasks = tasks.filter(
+        (task) => task.sNo.toString() !== taskNoInEdit.toString()
+      );
+      console.log(newTasks);
 
-      newTasks = tasks.map((task) => {
-        return { ...task, sNo: parseInt(task.sNo) - 1 };
-      });
-
-      tasks.push({
+      newTasks.push({
         sNo: taskNo.toString(),
         name: taskName,
         status: taskStatus,
       });
-    } else {
-      var newTasks = tasks.filter((task) => task.sNo === taskNoInEdit);
 
-      newTasks = tasks.map((task) => {
-        if (task.sNo < taskNoEntered) return task;
-        else return { ...task, sNo: parseInt(task.sNo) + 1 };
+      tasks = newTasks.map((task, i) => {
+        return { ...task, sNo: i + 1 };
       });
+    } else {
+      var newTasks = tasks.filter(
+        (task) => task.sNo.toString() !== taskNoInEdit.toString()
+      );
+
+      console.log(newTasks);
 
       newTasks.splice(taskNoEntered - 1, 0, {
         sNo: taskNoEntered.toString(),
         name: taskName,
         status: taskStatus,
       });
-
+      newTasks = newTasks.map((task, i) => {
+        return { ...task, sNo: (i + 1).toString() };
+      });
       tasks = newTasks;
     }
 

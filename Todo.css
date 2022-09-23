@@ -14,16 +14,16 @@
 }
 
 header {
-  width: min(1000px, 80%);
+  width: 70%;
   justify-content: space-between;
-  margin-top: 40px;
-  margin-bottom: 70px;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
   height: 20%;
 }
 
 h1 {
-  margin-top: 30px;
-  font-size: 3.5rem;
+  margin-top: 5rem;
+  font-size: 3rem;
   font-weight: bolder;
   display: flex;
 }
@@ -46,22 +46,22 @@ p {
 
 .no-tasks {
   color: gray;
-  margin-top: 20px;
+  margin-top: 5rem;
   display: none;
 }
 
 .add-task {
   /* align-self: flex-end; */
-  width: 100px;
-  margin-bottom: 20px;
+  width: 7rem;
+  margin-bottom: 2rem;
 }
 
 .task-form {
   display: flex;
-  width: min(1000px, 80%);
+  width: 70%;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 3rem;
 }
 
 .form-button {
@@ -72,8 +72,8 @@ p {
 .cancel-button {
   color: #ff4a4a;
   border: 2px solid #ff4a4a;
-  width: 40px;
-  margin-right: 25px;
+  width: 4rem;
+  margin-right: 2rem;
   display: none;
 }
 
@@ -83,13 +83,13 @@ p {
 }
 
 .task-item {
-  width: min(1000px, 85%);
+  width: 70%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  border-bottom: 0.5px solid gray;
-  padding: 12px 8px;
+  border-bottom: 0.05rem solid gray;
+  padding: 1rem 1rem;
 }
 
 .task-heading {
@@ -109,12 +109,12 @@ p {
 }
 
 .number-down {
-  margin-left: 3px;
+  margin-left: 0.1rem;
   display: none;
 }
 .form-task-number {
-  width: 25px;
-  margin-right: 15px;
+  width: 3rem;
+  margin-right: 2rem;
 }
 .task-heading-name,
 .task-name {
@@ -125,9 +125,9 @@ p {
 
 .task-heading-status,
 .task-status {
-  width: min(200px, 18%);
+  width: 18%;
   text-align: center;
-  margin: 10px;
+  margin: 0.5rem;
   justify-content: center;
   cursor: default;
   display: flex;
@@ -135,34 +135,34 @@ p {
 
 .status-up,
 .status-down {
-  margin-left: 3px;
+  margin-left: 0.3rem;
   display: none;
 }
 .task-heading-edit,
 .task-heading-remove,
 .task-edit,
 .task-remove {
-  width: 60px;
+  width: 7rem;
   text-align: center;
 }
 
 .button {
-  padding: 6px 7px;
+  padding: 0.7rem 0.7rem;
   background-color: transparent;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
 .form-edit-delete-button {
   display: flex;
-  width: 125px;
+  width: 8rem;
 }
 
 .edit-button,
 .add-task {
-  border: 2px solid #10caf0;
+  border: 0.15rem solid #10caf0;
   color: #10caf0;
   /* margin-top: 20px; */
   /* min-width: 50px; */
@@ -174,7 +174,7 @@ p {
 }
 
 .delete-button {
-  border: 1.5px solid #ff4a4a;
+  border: 0.15rem solid #ff4a4a;
   color: #ff4a4a;
 }
 .delete-button:hover {
@@ -187,10 +187,10 @@ p {
 }
 
 .task-status-todo {
-  border: 2px solid gray;
+  border: 0.15rem solid gray;
   color: gray;
   padding: 6px 5px;
-  width: 90px;
+  width: 8rem;
 }
 .task-status-todo:hover {
   background-color: gray;
@@ -198,7 +198,7 @@ p {
 }
 
 .task-status-in-progress {
-  border: 2px solid #ffc007;
+  border: 0.15rem solid #ffc007;
   color: #ffc007;
 }
 .task-status-in-progress:hover {
@@ -207,7 +207,7 @@ p {
 }
 
 .task-status-complete {
-  border: 2px solid #79b392;
+  border: 0.15rem solid #79b392;
   color: #79b392;
 }
 .task-status-complete:hover {
@@ -220,19 +220,19 @@ p {
 }
 
 input {
-  padding: 0px 8px;
-  width: 250px;
-  height: 40px;
+  padding: 0px 0.5rem;
+  width: 15rem;
+  height: 2.5rem;
   border-radius: 5px;
   border: 1px solid #80808082;
   display: flex;
 }
 
 select {
-  padding: 0px 8px;
+  padding: 0px 0.5rem;
   margin-left: 10px;
   border-radius: 5px;
-  height: 41px;
+  height: 2.5rem;
   border: 1px solid rgba(128, 128, 128, 0.511);
   color: rgba(0, 0, 0, 0.685);
 }
@@ -265,7 +265,7 @@ footer {
   display: flex;
   justify-content: center;
   color: gray;
-  margin-top: 300px;
+  margin: 15rem 0rem 5rem 0rem;
 }
 
 @media only screen and (max-width: 588px) {
