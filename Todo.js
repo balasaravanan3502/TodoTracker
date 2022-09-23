@@ -1,11 +1,12 @@
 let tasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
-let nonFilterTasks = [];
+let nonFilterTasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
 ``;
 var allStatus = ["todo", "in-progress", "complete"];
 
 var isAdd = true;
 var taskNoInEdit = -1;
 
+var numberFilter = 0;
 var statusFilter = 0;
 
 if (tasks.length === 0) {
@@ -47,42 +48,123 @@ const renderTasks = () => {
 const formSubmit = () => {
   var taskName = document.getElementById("task-name").value;
   var taskStatus = document.getElementById("task-status").value;
+  var taskNoEntered = document.getElementById("task-number").value;
 
-  if (taskName.length === 0) {
-    document.getElementById("form-error").style.display = "block";
+  if (
+    taskName.length === 0 ||
+    taskStatus.length === 0 ||
+    taskNoEntered.length === 0
+  ) {
+    if (taskName.length === 0)
+      document.getElementById("task-name").style.borderColor = "red";
+
+    if (taskStatus.length === 0)
+      document.getElementById("task-status").style.borderColor = "red";
+
+    if (taskStatus.length === 0)
+      document.getElementById("task-number").style.borderColor = "red";
     return;
   }
 
-  for (var task of tasks) {
-    if (task.name.toLowerCase() === taskName.toLowerCase()) {
-      alert("Already Exists");
-      return;
-    }
-  }
-
-  document.getElementById("form-error").style.display = "none";
+  // for (var task of tasks) {
+  //   if (task.name.toLowerCase() === taskName.toLowerCase()) {
+  //     alert("Already Exists");
+  //     return;
+  //   }
+  // }
 
   if (isAdd) {
     var taskNo;
-
-    if (tasks.length === 0) {
-      taskNo = 1;
-    } else {
+    if (taskNoEntered === "0") {
+      var newTasks = tasks.map((task) => {
+        return { ...task, sNo: parseInt(task.sNo) + 1 };
+      });
+      tasks = [
+        {
+          sNo: "1",
+          name: taskName,
+          status: taskStatus,
+        },
+        ...newTasks,
+      ];
+    } else if (taskNoEntered === "-1" || taskNoEntered > tasks.length) {
       taskNo = parseInt(tasks[tasks.length - 1].sNo) + 1;
-    }
 
-    tasks.push({
-      sNo: taskNo.toString(),
-      name: taskName,
-      status: taskStatus,
-    });
+      tasks.push({
+        sNo: taskNo.toString(),
+        name: taskName,
+        status: taskStatus,
+      });
+    } else {
+      var newTasks = tasks.map((task) => {
+        if (task.sNo < taskNoEntered) return task;
+        else
+          return {
+            ...task,
+            sNo: parseInt(task.sNo) + 1,
+          };
+      });
+
+      newTasks.splice(taskNoEntered - 1, 0, {
+        sNo: taskNoEntered.toString(),
+        name: taskName,
+        status: taskStatus,
+      });
+
+      tasks = newTasks;
+    }
 
     renderTasks();
   } else {
-    var taskIndex = tasks.findIndex((task) => task.sNo == taskNoInEdit);
+    if (taskNoInEdit === taskNoEntered) {
+      tasks[taskIndex].name = taskName;
+      tasks[taskIndex].status = taskStatus;
+    } else if (taskNoEntered === "0") {
+      var newTasks = tasks.filter((task) => task.sNo === taskNoInEdit);
 
-    tasks[taskIndex].name = taskName;
-    tasks[taskIndex].status = taskStatus;
+      newTasks = tasks.map((task) => {
+        return { ...task, sNo: parseInt(task.sNo) + 1 };
+      });
+
+      tasks = [
+        {
+          sNo: "1",
+          name: taskName,
+          status: taskStatus,
+        },
+        ...newTasks,
+      ];
+    } else if (taskNoEntered === "-1" || taskNoEntered > tasks.length) {
+      taskNo = parseInt(tasks[tasks.length - 1].sNo) + 1;
+
+      var newTasks = tasks.filter((task) => task.sNo === taskNoInEdit);
+
+      newTasks = tasks.map((task) => {
+        return { ...task, sNo: parseInt(task.sNo) - 1 };
+      });
+
+      tasks.push({
+        sNo: taskNo.toString(),
+        name: taskName,
+        status: taskStatus,
+      });
+    } else {
+      var newTasks = tasks.filter((task) => task.sNo === taskNoInEdit);
+
+      newTasks = tasks.map((task) => {
+        if (task.sNo < taskNoEntered) return task;
+        else return { ...task, sNo: parseInt(task.sNo) + 1 };
+      });
+
+      newTasks.splice(taskNoEntered - 1, 0, {
+        sNo: taskNoEntered.toString(),
+        name: taskName,
+        status: taskStatus,
+      });
+
+      tasks = newTasks;
+    }
+
     renderTasks();
 
     document.getElementById("form-submit-button").innerHTML = "Add Task";
@@ -92,6 +174,12 @@ const formSubmit = () => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
   document.getElementById("task-name").value = "";
   document.getElementById("task-status").value = "";
+  document.getElementById("task-number").value = "";
+
+  document.getElementById("task-name").style.borderColor = "#80808082";
+  document.getElementById("task-status").style.borderColor = "#80808082";
+  document.getElementById("task-number").style.borderColor = "#80808082";
+
   document.getElementById("form-cancel-button").style.display = "none";
   document.getElementById("no-tasks").style.display = "none";
 };
@@ -116,6 +204,23 @@ const updateStatus = (i) => {
   renderTasks();
 };
 
+const filterByNumberStatus = async () => {
+  if (numberFilter === 0) {
+    numberFilter = 1;
+    nonFilterTasks = tasks;
+
+    await tasks.sort((a, b) => parseInt(b.sNo) - parseInt(a.sNo));
+
+    document.getElementById("number-down").style.display = "inline";
+  } else {
+    numberFilter = 0;
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+    document.getElementById("number-down").style.display = "none";
+  }
+
+  renderTasks();
+};
+
 const filterByStatus = () => {
   var todoTasks = tasks.filter((task) => task.status === "todo");
   var inprogressTasks = tasks.filter((task) => task.status === "in-progress");
@@ -133,7 +238,7 @@ const filterByStatus = () => {
     document.getElementById("status-down").style.display = "inline";
   } else {
     statusFilter = 0;
-    nonFilterTasks = tasks;
+    tasks = nonFilterTasks;
     document.getElementById("status-up").style.display = "none";
     document.getElementById("status-down").style.display = "none";
   }
@@ -144,6 +249,9 @@ const filterByStatus = () => {
 const editTask = (i) => {
   document.getElementById("form-submit-button").innerHTML = "Edit Task";
   document.getElementById("form-cancel-button").style.display = "inline";
+
+  document.getElementById("task-number").value = i.toString();
+
   var taskDetails = tasks.filter((task) => task.sNo == i)[0];
 
   isAdd = false;
@@ -157,6 +265,11 @@ const deleteTask = (i) => {
   var isConfirm = confirm("Do you want to delete the task");
   if (!isConfirm) return false;
   newTasks = tasks.filter((task) => task.sNo != i);
+
+  newTasks = newTasks.map((task, i) => {
+    return { ...task, sNo: i + 1 };
+  });
+
   tasks = newTasks;
   localStorage.setItem("tasks", JSON.stringify(tasks));
 

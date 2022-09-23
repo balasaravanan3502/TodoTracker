@@ -22,7 +22,8 @@
         <p>Do it now.</p>
       </header>
       <section class="task-form">
-        <div class="form-input">
+        <div class="form-input">          
+          <input type="number" class="form-task-number" id="task-number" placeholder="#"/>
           <input type="text" class="form-task-name" id="task-name" placeholder="Task Name" />
           <!-- <div class="form-error" id="form-error">Enter Task Name</div> -->
           <select name="task-status" id="task-status" class="dropdown">
@@ -40,7 +41,10 @@
       <hr class="divider" />
       <section class="tasks">
         <article class="task-item task-heading">
-          <div class="task-heading-no">#</div>
+          <div class="task-heading-no" onclick="filterByNumberStatus()">
+            <div>#</div>           
+            <i class="fa-solid fa-angle-down number-down" id="number-down"></i></div>
+          </div>
           <div class="task-heading-name">Task Name</div>
           <div class="task-heading-status" onclick="filterByStatus()" >
             <div>Status</div> 
